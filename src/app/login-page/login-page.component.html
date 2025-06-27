@@ -1,0 +1,42 @@
+<h2>Login</h2>
+
+<form #loginForm="ngForm" (ngSubmit)="onLogin()" novalidate>
+  <!-- Email -->
+  <label>
+    Email:
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      #emailField="ngModel"
+      required
+      email
+    />
+  </label>
+  <div *ngIf="emailField.invalid && emailField.touched" style="color: red;">
+    <div *ngIf="emailField.errors?.['required']">Email is required</div>
+    <div *ngIf="emailField.errors?.['email']">Invalid email</div>
+  </div>
+  <br />
+
+  <!-- Password -->
+  <label>
+    Password:
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      #passwordField="ngModel"
+      required
+      minlength="6"
+    />
+  </label>
+  <div *ngIf="passwordField.invalid && passwordField.touched" style="color: red;">
+    <div *ngIf="passwordField.errors?.['required']">Password is required</div>
+    <div *ngIf="passwordField.errors?.['minlength']">Minimum 6 characters</div>
+  </div>
+  <br /><br />
+
+  <!-- Submit -->
+  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+</form>
