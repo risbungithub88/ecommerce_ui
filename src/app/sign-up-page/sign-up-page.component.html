@@ -1,0 +1,79 @@
+<h2>Sign Up</h2>
+
+<form #signupForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <!-- Name -->
+  <label>
+    Name:
+    <input
+      type="text"
+      name="name"
+      [(ngModel)]="name"
+      #nameField="ngModel"
+      required
+    />
+  </label>
+  <div *ngIf="nameField.invalid && nameField.touched" style="color: red;">
+    Name is required
+  </div>
+  <br />
+
+  <!-- Email -->
+  <label>
+    Email:
+    <input
+      type="email"
+      name="email"
+      [(ngModel)]="email"
+      #emailField="ngModel"
+      required
+      email
+    />
+  </label>
+  <div *ngIf="emailField.invalid && emailField.touched" style="color: red;">
+    <div *ngIf="emailField.errors?.['required']">Email is required</div>
+    <div *ngIf="emailField.errors?.['email']">Email is invalid</div>
+  </div>
+  <br />
+
+  <!-- Password -->
+  <label>
+    Password:
+    <input
+      type="password"
+      name="password"
+      [(ngModel)]="password"
+      #passwordField="ngModel"
+      required
+      minlength="6"
+    />
+  </label>
+  <div *ngIf="passwordField.invalid && passwordField.touched" style="color: red;">
+    <div *ngIf="passwordField.errors?.['required']">Password is required</div>
+    <div *ngIf="passwordField.errors?.['minlength']">Password must be at least 6 characters</div>
+  </div>
+  <br />
+
+  <!-- Confirm Password -->
+  <label>
+    Confirm Password:
+    <input
+      type="password"
+      name="confirmPassword"
+      [(ngModel)]="confirmPassword"
+      #confirmPasswordField="ngModel"
+      required
+    />
+  </label>
+  <div *ngIf="confirmPasswordField.invalid && confirmPasswordField.touched" style="color: red;">
+    Confirm password is required
+  </div>
+  <div *ngIf="password !== confirmPassword && confirmPasswordField.touched" style="color: red;">
+    Passwords do not match
+  </div>
+  <br /><br />
+
+  <!-- Submit -->
+  <button type="submit" [disabled]="signupForm.invalid || password !== confirmPassword">
+    Register
+  </button>
+</form>
